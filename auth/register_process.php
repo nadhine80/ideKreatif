@@ -11,7 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO users (username, name, password) VALUES ('$username', '$name', '$hashedPassword')";
     if ($conn->query($sql) === TRUE) {
         //Simpan notifikasi ke dalam session
-        $_SESSION['notification'] = ['type' => 'primary', 'message' => 'Registrasi Berhasil!'];
+        $_SESSION['notification'] = [<?php
+        session_start();
+        $notification = $_SESSION['notification'] ?? null;
+        if ($notification) {
+          unset($_SESSION['notification']);
+        }
+        if (isset($_SESSION["username"]) || isset($_SESSION["role"])) {
+          $_SESSION['notification'] = [
+            'type' => 'danger',
+            'message' => 'Silakan logout terlebih dahulu!'
+          ];
+          header('Location: ../dashboard.php');
+        }
+        ?>'type' => 'primary', 'message' => 'Registrasi Berhasil!'];
     } else {
         $_SESSION['notification'] = ['type' => 'danger', 'message' => 'Gagal Registrasi: ' . mysqli_error($conn)];
     }
