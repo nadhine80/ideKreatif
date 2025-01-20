@@ -20,11 +20,32 @@ if (isset($_POST['simpan'])) {
         $_SESSION['notification'] = ['type' => 'primary', //jenis notifikasi (contoh: primary untuk keberhasilan) 
         'message' => 'Kategori berhasil ditambahkan!'];
     } else {
-        $_SESSION['notification'] = ['type' => 'danger', //jenis notifikasi (contoh: danger untuk kegagalan)
+        $_SESSION['notification'] = [
+        'type' => 'danger', //jenis notifikasi (contoh: danger untuk kegagalan)
         'message' => 'Gagal menambahkan kategori: ' . mysqli_error($conn)];
     }
 
     //redirect kembali ke halaman kategori
     header('Location: kategori.php');
     exit();
+}
+//proses penghapusan kategori
+if (isset($_POST['delete'])) {
+    //mengambil ID kategori dari parmeter URL
+    $catID = $_POST['catID'];
+
+    //query untuk menghapus kategori berdasarkan ID
+    $exec = mysqli_query($conn, "DELETE FROM categories WHERE category_id='$catID'");
+
+    //menyimpan notifikasi keberhasilan atau kegagalan ke dalam session
+    if ($exec) {
+        $_SESSION['notification'] = ['type' => 'primary', 
+        'message' => 'Kategori berhasil dihapus!'];
+    } else {
+        $_SESSION ['notification'] = ['type' => 'danger',
+        'message' => 'Gagal menghapus kategori: ' . mysqli_error($conn)];
+    }
+
+    //redirect kembali ke halaman kategori
+    header('Location: kategori.php');
 }
