@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM users WHERE username='$username'";
     $result = $conn->query($sql);
 
-    id ($result->num_rows > 0) {
+    if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         //Verifikasi password
         if (password_verify($password, $row["password"])) {
