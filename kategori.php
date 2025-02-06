@@ -12,7 +12,7 @@ include '.includes/toast_notification.php';
             <h4>Data Kategori</h4>
             <!-- Tombol untuk menambah kategori baru -->
              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategory">
-                ta,Tambah Kategori
+                Tambah Kategori
              </button>
         </div>
 
@@ -57,7 +57,7 @@ include '.includes/toast_notification.php';
                     </td>
                             </tr>
                             <!-- modal untuk hapus data kategori -->
-                             <div class="modal fade" id="deleteCategory_<?= $category['category_id']; ?>" tabinex="-1" aria hidden="true">
+                             <div class="modal fade" id="deleteCategory_<?= $category['category_id']; ?>" tabinex="-1" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -91,6 +91,15 @@ include '.includes/toast_notification.php';
                                             <form action="proses_kategori.php" method="POST">
                                                 <!-- input tersembunyi untuk menyimpan ID kategori -->
                                                  <input type="hidden" name="catID" value="<?=$category['category_id']; ?>">
+                                                 <div class = "form-group">
+                                                    <label>Nama Kategori</label>
+                                                    <!-- input untuk nama kategori -->
+                                                     <input type="text" value="<?= $category['category_name']; ?>" name="category_name" class="form-control">
+                                                 </div>
+                                                 <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                    <button type="submit" name="update" class="btn btn-warning">Update</button>
+                                                 </div>
                                             </form>
                                         </div>
                                     </div>
